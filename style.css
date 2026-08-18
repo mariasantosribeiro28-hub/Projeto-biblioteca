@@ -1,0 +1,774 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fc;
+}
+
+
+/* =========================
+   TELA INICIAL
+========================= */
+
+#telaInicial {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            #4b9af0,
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #0756c9,
+            #102f78
+        );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.capa {
+    width: 650px;
+    padding: 40px;
+}
+
+.icone {
+    width: 95px;
+    height: 95px;
+
+    margin: 0 auto 25px;
+
+    border-radius: 25px;
+
+    background: rgba(255,255,255,0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 45px;
+}
+
+.capa h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.capa h2 {
+    font-size: 23px;
+    font-weight: normal;
+    margin-bottom: 15px;
+}
+
+.capa p {
+    max-width: 500px;
+    margin: 0 auto 35px;
+
+    color: rgba(255,255,255,0.8);
+
+    line-height: 1.6;
+
+    font-size: 16px;
+}
+
+#btnComecar {
+    border: none;
+
+    background: white;
+    color: #0756c9;
+
+    padding: 16px 38px;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#btnComecar:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.2);
+}
+
+.capa small {
+    display: block;
+
+    margin-top: 40px;
+
+    color: rgba(255,255,255,0.5);
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+#telaLogin {
+    display: none;
+
+    min-height: 100vh;
+
+    background: #eef4fc;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.login {
+    width: 420px;
+
+    background: white;
+
+    padding: 45px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,0.1);
+}
+
+.logo-login {
+    width: 65px;
+    height: 65px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1769df,
+            #0756c9
+        );
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+
+    margin-bottom: 25px;
+}
+
+.login h2 {
+    font-size: 29px;
+    margin-bottom: 8px;
+}
+
+.login p {
+    color: #7d8798;
+    margin-bottom: 25px;
+}
+
+.login label {
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+.campo input {
+    width: 100%;
+
+    height: 50px;
+
+    border: 1px solid #dce2eb;
+
+    border-radius: 9px;
+
+    padding: 0 15px;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.campo input:focus {
+    border-color: #1769df;
+
+    box-shadow:
+        0 0 0 3px rgba(23,105,223,0.1);
+}
+
+#btnEntrar {
+    width: 100%;
+
+    height: 50px;
+
+    margin-top: 25px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1769df,
+            #0756c9
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+    cursor: pointer;
+}
+
+#btnVoltar {
+    display: block;
+
+    margin: 20px auto 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #718096;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+#dashboard {
+    display: none;
+    min-height: 100vh;
+}
+
+.menu {
+    position: fixed;
+
+    width: 245px;
+    height: 100vh;
+
+    background:
+        linear-gradient(
+            180deg,
+            #0756c9,
+            #123b91
+        );
+
+    color: white;
+
+    padding: 25px 15px;
+}
+
+.logo-menu {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    padding: 10px 15px 35px;
+}
+
+.menu nav {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.menu nav a {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 15px;
+
+    border-radius: 9px;
+
+    color: rgba(255,255,255,0.78);
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.menu nav a:hover,
+.menu nav a.ativo {
+    background: rgba(255,255,255,0.15);
+
+    color: white;
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.conteudo {
+    margin-left: 245px;
+
+    padding: 35px 40px;
+}
+
+.topo {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.topo h2 {
+    font-size: 28px;
+}
+
+.topo p {
+    color: #7d8798;
+
+    margin-top: 5px;
+}
+
+.usuario {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.usuario small {
+    display: block;
+
+    color: #8994a6;
+
+    margin-top: 3px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: #1769df;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+.card {
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    box-shadow:
+        0 5px 20px rgba(30,50,90,0.06);
+}
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+.azul {
+    background: #e1edff;
+    color: #1769df;
+}
+
+.roxo {
+    background: #eee8ff;
+    color: #7657df;
+}
+
+.verde {
+    background: #e1f8ee;
+    color: #19a974;
+}
+
+.laranja {
+    background: #fff0df;
+    color: #e99129;
+}
+
+.card span {
+    display: block;
+
+    color: #7d8798;
+
+    font-size: 13px;
+}
+
+.card strong {
+    display: block;
+
+    font-size: 27px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================
+   PAINÉIS
+========================= */
+
+.paineis {
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr;
+
+    gap: 20px;
+}
+
+.painel {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 20px rgba(30,50,90,0.06);
+
+    margin-bottom: 20px;
+}
+
+.painel h3 {
+    font-size: 18px;
+}
+
+.painel > p {
+    color: #8994a6;
+
+    font-size: 13px;
+
+    margin: 8px 0 20px;
+}
+
+
+/* =========================
+   PÁGINAS
+========================= */
+
+.pagina {
+    display: none;
+}
+
+
+/* =========================
+   FORMULÁRIOS
+========================= */
+
+.form-cadastro {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 20px rgba(30,50,90,0.06);
+
+    margin-bottom: 20px;
+}
+
+.form-cadastro h3 {
+    margin-bottom: 8px;
+}
+
+.form-cadastro p {
+    color: #8994a6;
+
+    font-size: 13px;
+
+    margin-bottom: 20px;
+}
+
+.form-cadastro label {
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+.form-cadastro input,
+.form-cadastro select {
+    width: 100%;
+
+    height: 50px;
+
+    border: 1px solid #dce2eb;
+
+    border-radius: 9px;
+
+    padding: 0 15px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    margin-bottom: 18px;
+
+    background: white;
+}
+
+.form-cadastro input:focus,
+.form-cadastro select:focus {
+    border-color: #1769df;
+}
+
+.btn-cadastrar {
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1769df,
+            #0756c9
+        );
+
+    color: white;
+
+    padding: 13px 22px;
+
+    border-radius: 9px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   LISTAS
+========================= */
+
+.item {
+    padding: 16px 0;
+
+    border-top: 1px solid #edf0f4;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.item strong {
+    display: block;
+
+    font-size: 15px;
+}
+
+.item span {
+    display: block;
+
+    color: #7d8798;
+
+    font-size: 13px;
+
+    margin-top: 5px;
+}
+
+.btn-excluir {
+    border: none;
+
+    background: #fff0f0;
+
+    color: #e05252;
+
+    padding: 8px 12px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+.btn-acao {
+    border: none;
+
+    background: #e1edff;
+
+    color: #1769df;
+
+    padding: 8px 12px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   RELATÓRIOS
+========================= */
+
+.relatorios-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.relatorio-card {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 20px rgba(30,50,90,0.06);
+}
+
+.relatorio-card span {
+    color: #7d8798;
+
+    display: block;
+
+    margin-bottom: 10px;
+}
+
+.relatorio-card strong {
+    font-size: 35px;
+
+    color: #1769df;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 1000px) {
+
+    .cards {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .paineis {
+        grid-template-columns: 1fr;
+    }
+
+    .relatorios-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .menu {
+        width: 70px;
+    }
+
+    .logo-menu span:last-child,
+    .menu nav span:last-child {
+        display: none;
+    }
+
+    .conteudo {
+        margin-left: 70px;
+
+        padding: 20px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .relatorios-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .login {
+        width: 90%;
+        padding: 30px;
+    }
+
+    .capa h1 {
+        font-size: 36px;
+    }
+}

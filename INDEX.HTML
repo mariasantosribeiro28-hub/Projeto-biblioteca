@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Biblioteca do CEEP</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- TELA INICIAL -->
+
+    <section id="telaInicial">
+
+        <div class="capa">
+
+            <div class="icone">
+                📚
+            </div>
+
+            <h1>Biblioteca do CEEP</h1>
+
+            <h2>Bem-vindo à biblioteca do CEEP!</h2>
+
+            <p>
+                Encontre, empreste e acompanhe seus livros
+                de forma simples e organizada.
+            </p>
+
+            <button id="btnComecar" type="button">
+                Começar →
+            </button>
+
+            <small>
+                Sistema de Gestão da Biblioteca
+            </small>
+
+        </div>
+
+    </section>
+
+
+    <!-- LOGIN -->
+
+    <section id="telaLogin">
+
+        <div class="login">
+
+            <div class="logo-login">
+                📚
+            </div>
+
+            <h2>Bem-vindo! 👋</h2>
+
+            <p>
+                Entre para acessar a Biblioteca do CEEP.
+            </p>
+
+            <form id="formLogin">
+
+                <label for="nomeUsuario">
+                    Nome
+                </label>
+
+                <div class="campo">
+
+                    <input
+                        id="nomeUsuario"
+                        type="text"
+                        placeholder="Digite seu nome"
+                        required>
+
+                </div>
+
+
+                <label for="email">
+                    E-mail
+                </label>
+
+                <div class="campo">
+
+                    <input
+                        id="email"
+                        type="email"
+                        placeholder="Digite seu e-mail"
+                        required>
+
+                </div>
+
+
+                <label for="senha">
+                    Senha
+                </label>
+
+                <div class="campo">
+
+                    <input
+                        id="senha"
+                        type="password"
+                        placeholder="Digite sua senha"
+                        required>
+
+                </div>
+
+
+                <button id="btnEntrar" type="submit">
+                    Entrar →
+                </button>
+
+            </form>
+
+
+            <button id="btnVoltar" type="button">
+                ← Voltar
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard">
+
+        <!-- MENU -->
+
+        <aside class="menu">
+
+            <div class="logo-menu">
+
+                <span>📚</span>
+
+                <span>
+                    Biblioteca CEEP
+                </span>
+
+            </div>
+
+
+            <nav>
+
+                <a id="menuDashboard" class="ativo">
+
+                    <span>🏠</span>
+                    <span>Dashboard</span>
+
+                </a>
+
+
+                <a id="menuLivros">
+
+                    <span>📚</span>
+                    <span>Livros</span>
+
+                </a>
+
+
+                <a id="menuAlunos">
+
+                    <span>👨‍🎓</span>
+                    <span>Alunos</span>
+
+                </a>
+
+
+                <a id="menuEmprestimos">
+
+                    <span>🔄</span>
+                    <span>Empréstimos</span>
+
+                </a>
+
+
+                <a id="menuDevolucoes">
+
+                    <span>↩️</span>
+                    <span>Devoluções</span>
+
+                </a>
+
+
+                <a id="menuAtrasados">
+
+                    <span>⚠️</span>
+                    <span>Atrasados</span>
+
+                </a>
+
+
+                <a id="menuHistorico">
+
+                    <span>🕐</span>
+                    <span>Histórico</span>
+
+                </a>
+
+
+                <a id="menuRelatorios">
+
+                    <span>📊</span>
+                    <span>Relatórios</span>
+
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- CONTEÚDO -->
+
+        <main class="conteudo">
+
+
+            <!-- DASHBOARD -->
+
+            <section id="paginaDashboard" class="pagina">
+
+                <div class="topo">
+
+                    <div>
+
+                        <h2>
+                            Olá! 👋
+                        </h2>
+
+                        <p>
+                            Bem-vindo ao sistema da Biblioteca do CEEP.
+                        </p>
+
+                    </div>
+
+
+                    <div class="usuario">
+
+                        <div
+                            class="avatar"
+                            id="avatarUsuario">
+
+                            U
+
+                        </div>
+
+                        <div>
+
+                            <strong id="nomeLogado">
+                                Usuário
+                            </strong>
+
+                            <small>
+                                Bibliotecária
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CARDS -->
+
+                <section class="cards">
+
+
+                    <div class="card">
+
+                        <div class="card-icon azul">
+                            📚
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Total de livros
+                            </span>
+
+                            <strong id="totalLivros">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-icon roxo">
+                            👨‍🎓
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Alunos cadastrados
+                            </span>
+
+                            <strong id="totalAlunos">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-icon verde">
+                            📖
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Livros emprestados
+                            </span>
+
+                            <strong id="totalEmprestados">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-icon laranja">
+                            ⚠️
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Em atraso
+                            </span>
+
+                            <strong id="totalAtrasados">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- PAINÉIS -->
+
+                <section class="paineis">
+
+
+                    <div class="painel">
+
+                        <h3>
+                            Empréstimos recentes
+                        </h3>
+
+                        <p>
+                            Últimos livros emprestados
+                        </p>
+
+                        <div id="emprestimosRecentes">
+                            Nenhum empréstimo registrado.
+                        </div>
+
+                    </div>
+
+
+                    <div class="painel">
+
+                        <h3>
+                            Devoluções próximas
+                        </h3>
+
+                        <p>
+                            Livros que precisam ser devolvidos
+                        </p>
+
+                        <div id="devolucoesProximas">
+                            Nenhuma devolução próxima.
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </section>
+
+
+            <!-- LIVROS -->
+
+            <section id="paginaLivros" class="pagina">
+
+                <div class="topo">
+
+                    <div>
+
+                        <h2>📚 Livros</h2>
+
+                        <p>
+                            Cadastre os livros da Biblioteca do CEEP.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-cadastro">
+
+                    <h3>
+                        Cadastrar livro
+                    </h3>
+
+                    <p>
+                        Informe somente o título e o autor.
+                    </p>
+
+
+                    <label for="tituloLivro">
+                        Título
+                    </label>
+
+                    <input
+                        id="tituloLivro"
+                        type="text"
+                        placeholder="Digite o título do livro">
+
+
+                    <label for="autorLivro">
+                        Autor
+                    </label>
+
+                    <input
+                        id="autorLivro"
+                        type="text"
+                        placeholder="Digite o autor">
+
+
+                    <button
+                        class="btn-cadastrar"
+                        id="btnCadastrarLivro"
+                        type="button">
+
+                        Cadastrar livro
+
+                    </button>
+
+                </div>
+
+
+                <div class="painel">
+
+                    <h3>
+                        Livros cadastrados
+                    </h3>
+
+                    <p>
+                        Livros registrados no sistema.
+                    </p>
+
+                    <div id="listaLivros"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ALUNOS -->
+
+            <section id="paginaAlunos" class="pagina">
+
+                <div class="topo">
+
+                    <div>
+
+                        <h2>👨‍🎓 Alunos</h2>
+
+                        <p>
+                            Cadastre os alunos da biblioteca.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-cadastro">
+
+                    <h3>
+                        Cadastrar aluno
+                    </h3>
+
+                    <p>
+                        Informe o nome e a matrícula.
+                    </p>
+
+
+                    <label for="nomeAluno">
+                        Nome
+                    </label>
+
+                    <input
+                        id="nomeAluno"
+                        type="text"
+                        placeholder="Digite o nome do aluno">
+
+
+                    <label for="matriculaAluno">
+                        Matrícula
+                    </label>
+
+                    <input
+                        id="matriculaAluno"
+                        type="text"
+                        placeholder="Digite a matrícula">
+
+
+                    <button
+                        class="btn-cadastrar"
+                        id="btnCadastrarAluno"
+                        type="button">
+
+                        Cadastrar aluno
+
+                    </button>
+
+                </div>
+
+
+                <div class="painel">
+
+                    <h3>
+                        Alunos cadastrados
+                    </h3>
+
+                    <p>
+                        Alunos registrados no sistema.
+                    </p>
+
+                    <div id="listaAlunos"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- EMPRÉSTIMOS -->
+
+            <section id="paginaEmprestimos" class="pagina">
+
+                <div class="topo">
+
+                    <div>
+
+                        <h2>🔄 Empréstimos</h2>
+
+                        <p>
+                            Registre o empréstimo de um livro.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-cadastro">
+
+                    <h3>
+                        Novo empréstimo
+                    </h3>
+
+
+                    <label for="selectAluno">
+                        Aluno
+                    </label>
+
+                    <select id="selectAluno">
+
+                        <option value="">
+                            Selecione um aluno
+                        </option>
+
+                    </select>
+
+
+                    <label for="selectLivro">
+                        Livro
+                    </label>
+
+                    <select id="selectLivro">
+
+                        <option value="">
+                            Selecione um livro
+                        </option>
+
+                    </select>
+
+
+                    <label for="dataDevolucao">
+                        Data de devolução
+                    </label>
+
+                    <input
+                        id="dataDevolucao"
+                        type="date">
+
+
+                    <button
+                        class="btn-cadastrar"
+                        id="btnCadastrarEmprestimo"
+                        type="button">
+
+                        Registrar empréstimo
+
+                    </button>
+
+                </div>
+
+
+                <div class="painel">
+
+                    <h3>
+                        Empréstimos ativos
+                    </h3>
+
+                    <p>
+                        Livros atualmente emprestados.
+                    </p>
+
+                    <div id="listaEmprestimos"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- DEVOLUÇÕES -->
+
+            <section id="paginaDevolucoes" class="pagina">
+
+                <div class="topo">
+
+                    <div>
+
+                        <h2>↩️ Devoluções</h2>
+
+                        <p>
+                            Registre a devolução dos livros.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="painel">
+
+                    <h3>
+                        Livros emprestados
+                    </h3>
+
+                    <p>
+                        Clique em devolver quando o livro retornar.
+                    </p>
+
+                    <div id="listaDevolucoes"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ATRASADOS -->
+
+            <section id="paginaAtrasados" class="pagina">
+
+                <div class="topo">
+
+                    <div>
+
+                        <h2>⚠️ Atrasados</h2>
+
+                        <p>
+                            Livros que passaram da data de devolução.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="painel">
+
+                    <h3>
+                        Empréstimos atrasados
+                    </h3>
+
+                    <div id="listaAtrasados"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- HISTÓRICO -->
+
+            <section id="paginaHistorico" class="pagina">
+
+                <div class="topo">
+
+                    <div>
+
+                        <h2>🕐 Histórico</h2>
+
+                        <p>
+                            Histórico de empréstimos e devoluções.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="painel">
+
+                    <h3>
+                        Histórico do sistema
+                    </h3>
+
+                    <div id="listaHistorico"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- RELATÓRIOS -->
+
+            <section id="paginaRelatorios" class="pagina">
+
+                <div class="topo">
+
+                    <div>
+
+                        <h2>📊 Relatórios</h2>
+
+                        <p>
+                            Resumo das informações da biblioteca.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="relatorios-grid">
+
+
+                    <div class="relatorio-card">
+
+                        <span>
+                            📚 Livros
+                        </span>
+
+                        <strong id="relatorioLivros">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="relatorio-card">
+
+                        <span>
+                            👨‍🎓 Alunos
+                        </span>
+
+                        <strong id="relatorioAlunos">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="relatorio-card">
+
+                        <span>
+                            🔄 Empréstimos
+                        </span>
+
+                        <strong id="relatorioEmprestimos">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="relatorio-card">
+
+                        <span>
+                            ↩️ Devoluções
+                        </span>
+
+                        <strong id="relatorioDevolucoes">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="relatorio-card">
+
+                        <span>
+                            ⚠️ Atrasados
+                        </span>
+
+                        <strong id="relatorioAtrasados">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </section>
+
+
+    <!-- IMPORTANTE: SEU ARQUIVO SE CHAMA app.js -->
+
+    <script src="./app.js"></script>
+
+</body>
+
+</html>
