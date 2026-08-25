@@ -1,25 +1,65 @@
+// ==========================================
+// BIBLIOTECA DO CEEP
+// app.js - Sistema completo
+// ==========================================
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* =========================
-       DADOS
-    ========================= */
+    // ==========================================
+    // BANCO DE DADOS - LOCALSTORAGE
+    // ==========================================
 
-    let livros =
-        JSON.parse(localStorage.getItem("livrosCEEP")) || [];
-
-    let alunos =
-        JSON.parse(localStorage.getItem("alunosCEEP")) || [];
-
-    let emprestimos =
-        JSON.parse(localStorage.getItem("emprestimosCEEP")) || [];
-
-    let historico =
-        JSON.parse(localStorage.getItem("historicoCEEP")) || [];
+    let db = {
+        usuarios: JSON.parse(localStorage.getItem("ceep_usuarios")) || [],
+        livros: JSON.parse(localStorage.getItem("ceep_livros")) || [],
+        alunos: JSON.parse(localStorage.getItem("ceep_alunos")) || [],
+        emprestimos: JSON.parse(localStorage.getItem("ceep_emprestimos")) || [],
+        historico: JSON.parse(localStorage.getItem("ceep_historico")) || [],
+        usuarioLogado: JSON.parse(localStorage.getItem("ceep_usuarioLogado")) || null
+    };
 
 
-    /* =========================
-       TELAS
-    ========================= */
+    // ==========================================
+    // SALVAR BANCO
+    // ==========================================
+
+    function salvarDB() {
+
+        localStorage.setItem(
+            "ceep_usuarios",
+            JSON.stringify(db.usuarios)
+        );
+
+        localStorage.setItem(
+            "ceep_livros",
+            JSON.stringify(db.livros)
+        );
+
+        localStorage.setItem(
+            "ceep_alunos",
+            JSON.stringify(db.alunos)
+        );
+
+        localStorage.setItem(
+            "ceep_emprestimos",
+            JSON.stringify(db.emprestimos)
+        );
+
+        localStorage.setItem(
+            "ceep_historico",
+            JSON.stringify(db.historico)
+        );
+
+        localStorage.setItem(
+            "ceep_usuarioLogado",
+            JSON.stringify(db.usuarioLogado)
+        );
+    }
+
+
+    // ==========================================
+    // ELEMENTOS DAS TELAS
+    // ==========================================
 
     const telaInicial =
         document.getElementById("telaInicial");
@@ -31,48 +71,387 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("dashboard");
 
 
-    /* =========================
-       BOTÃO COMEÇAR
-    ========================= */
+    // ==========================================
+    // BOTÕES
+    // ==========================================
 
     const btnComecar =
         document.getElementById("btnComecar");
 
-    btnComecar.addEventListener("click", function () {
-
-        telaInicial.style.display = "none";
-
-        telaLogin.style.display = "flex";
-
-    });
-
-
-    /* =========================
-       BOTÃO VOLTAR
-    ========================= */
-
     const btnVoltar =
         document.getElementById("btnVoltar");
-
-    btnVoltar.addEventListener("click", function () {
-
-        telaLogin.style.display = "none";
-
-        telaInicial.style.display = "flex";
-
-    });
-
-
-    /* =========================
-       LOGIN
-    ========================= */
 
     const formLogin =
         document.getElementById("formLogin");
 
+
+    // ==========================================
+    // USUÁRIO
+    // ==========================================
+
+    const avatarUsuario =
+        document.getElementById("avatarUsuario");
+
+    const nomeLogado =
+        document.getElementById("nomeLogado");
+
+
+    // ==========================================
+    // MENUS
+    // ==========================================
+
+    const menuLinks = {
+
+        paginaDashboard:
+            document.getElementById("menuDashboard"),
+
+        paginaLivros:
+            document.getElementById("menuLivros"),
+
+        paginaAlunos:
+            document.getElementById("menuAlunos"),
+
+        paginaEmprestimos:
+            document.getElementById("menuEmprestimos"),
+
+        paginaDevolucoes:
+            document.getElementById("menuDevolucoes"),
+
+        paginaAtrasados:
+            document.getElementById("menuAtrasados"),
+
+        paginaHistorico:
+            document.getElementById("menuHistorico"),
+
+        paginaRelatorios:
+            document.getElementById("menuRelatorios")
+    };
+
+
+    // ==========================================
+    // PÁGINAS
+    // ==========================================
+
+    const paginas =
+        document.querySelectorAll(".pagina");
+
+
+    // ==========================================
+    // LIVROS
+    // ==========================================
+
+    const tituloLivro =
+        document.getElementById("tituloLivro");
+
+    const autorLivro =
+        document.getElementById("autorLivro");
+
+    const btnCadastrarLivro =
+        document.getElementById("btnCadastrarLivro");
+
+    const listaLivros =
+        document.getElementById("listaLivros");
+
+
+    // ==========================================
+    // ALUNOS
+    // ==========================================
+
+    const nomeAluno =
+        document.getElementById("nomeAluno");
+
+    const matriculaAluno =
+        document.getElementById("matriculaAluno");
+
+    const btnCadastrarAluno =
+        document.getElementById("btnCadastrarAluno");
+
+    const listaAlunos =
+        document.getElementById("listaAlunos");
+
+
+    // ==========================================
+    // EMPRÉSTIMOS
+    // ==========================================
+
+    const selectAluno =
+        document.getElementById("selectAluno");
+
+    const selectLivro =
+        document.getElementById("selectLivro");
+
+    const dataDevolucao =
+        document.getElementById("dataDevolucao");
+
+    const btnCadastrarEmprestimo =
+        document.getElementById("btnCadastrarEmprestimo");
+
+    const listaEmprestimos =
+        document.getElementById("listaEmprestimos");
+
+
+    // ==========================================
+    // DEVOLUÇÕES / ATRASADOS / HISTÓRICO
+    // ==========================================
+
+    const listaDevolucoes =
+        document.getElementById("listaDevolucoes");
+
+    const listaAtrasados =
+        document.getElementById("listaAtrasados");
+
+    const listaHistorico =
+        document.getElementById("listaHistorico");
+
+
+    // ==========================================
+    // DASHBOARD
+    // ==========================================
+
+    const totalLivros =
+        document.getElementById("totalLivros");
+
+    const totalAlunos =
+        document.getElementById("totalAlunos");
+
+    const totalEmprestados =
+        document.getElementById("totalEmprestados");
+
+    const totalAtrasados =
+        document.getElementById("totalAtrasados");
+
+    const emprestimosRecentes =
+        document.getElementById("emprestimosRecentes");
+
+    const devolucoesProximas =
+        document.getElementById("devolucoesProximas");
+
+
+    // ==========================================
+    // RELATÓRIOS
+    // ==========================================
+
+    const relatorioLivros =
+        document.getElementById("relatorioLivros");
+
+    const relatorioAlunos =
+        document.getElementById("relatorioAlunos");
+
+    const relatorioEmprestimos =
+        document.getElementById("relatorioEmprestimos");
+
+    const relatorioDevolucoes =
+        document.getElementById("relatorioDevolucoes");
+
+    const relatorioAtrasados =
+        document.getElementById("relatorioAtrasados");
+
+
+    // ==========================================
+    // FUNÇÃO PARA FORMATAR DATA
+    // ==========================================
+
+    function formatarData(data) {
+
+        if (!data) {
+            return "-";
+        }
+
+        const partes = data.split("-");
+
+        if (partes.length !== 3) {
+            return data;
+        }
+
+        return (
+            partes[2] +
+            "/" +
+            partes[1] +
+            "/" +
+            partes[0]
+        );
+    }
+
+
+    // ==========================================
+    // DATA DE HOJE
+    // ==========================================
+
+    function obterDataHoje() {
+
+        const hoje = new Date();
+
+        const ano =
+            hoje.getFullYear();
+
+        const mes =
+            String(hoje.getMonth() + 1)
+                .padStart(2, "0");
+
+        const dia =
+            String(hoje.getDate())
+                .padStart(2, "0");
+
+        return `${ano}-${mes}-${dia}`;
+    }
+
+
+    // ==========================================
+    // VERIFICAR SE ESTÁ ATRASADO
+    // ==========================================
+
+    function estaAtrasado(emprestimo) {
+
+        if (!emprestimo) {
+            return false;
+        }
+
+        if (emprestimo.status !== "ativo") {
+            return false;
+        }
+
+        return (
+            emprestimo.dataDevolucao <
+            obterDataHoje()
+        );
+    }
+
+
+    // ==========================================
+    // MOSTRAR TELA
+    // ==========================================
+
+    function mostrarTela(tela) {
+
+        telaInicial.style.display = "none";
+        telaLogin.style.display = "none";
+        dashboard.style.display = "none";
+
+        if (tela === "inicial") {
+
+            telaInicial.style.display = "flex";
+
+        }
+
+        if (tela === "login") {
+
+            telaLogin.style.display = "flex";
+
+        }
+
+        if (tela === "dashboard") {
+
+            dashboard.style.display = "block";
+
+            navegarPara("paginaDashboard");
+
+            atualizarTudo();
+
+        }
+    }
+
+
+    // ==========================================
+    // NAVEGAR ENTRE PÁGINAS
+    // ==========================================
+
+    function navegarPara(idPagina) {
+
+        paginas.forEach(function (pagina) {
+
+            pagina.style.display = "none";
+
+        });
+
+
+        Object.keys(menuLinks).forEach(function (id) {
+
+            if (menuLinks[id]) {
+
+                menuLinks[id]
+                    .classList
+                    .remove("ativo");
+
+            }
+
+        });
+
+
+        const pagina =
+            document.getElementById(idPagina);
+
+        if (pagina) {
+
+            pagina.style.display = "block";
+
+        }
+
+
+        if (menuLinks[idPagina]) {
+
+            menuLinks[idPagina]
+                .classList
+                .add("ativo");
+
+        }
+
+
+        atualizarTudo();
+    }
+
+
+    // ==========================================
+    // EVENTOS DOS MENUS
+    // ==========================================
+
+    Object.keys(menuLinks).forEach(function (idPagina) {
+
+        if (!menuLinks[idPagina]) {
+            return;
+        }
+
+        menuLinks[idPagina]
+            .addEventListener("click", function (event) {
+
+                event.preventDefault();
+
+                navegarPara(idPagina);
+
+            });
+
+    });
+
+
+    // ==========================================
+    // BOTÃO COMEÇAR
+    // ==========================================
+
+    btnComecar.addEventListener("click", function () {
+
+        mostrarTela("login");
+
+    });
+
+
+    // ==========================================
+    // BOTÃO VOLTAR
+    // ==========================================
+
+    btnVoltar.addEventListener("click", function () {
+
+        mostrarTela("inicial");
+
+    });
+
+
+    // ==========================================
+    // LOGIN
+    // ==========================================
+
     formLogin.addEventListener("submit", function (event) {
 
         event.preventDefault();
+
 
         const nome =
             document
@@ -80,7 +459,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 .value
                 .trim();
 
-        if (nome === "") {
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim();
+
+        const senha =
+            document
+                .getElementById("senha")
+                .value
+                .trim();
+
+
+        if (!nome) {
 
             alert("Digite seu nome.");
 
@@ -89,136 +481,92 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        document
-            .getElementById("nomeLogado")
-            .textContent = nome;
+        if (!email) {
+
+            alert("Digite seu e-mail.");
+
+            return;
+
+        }
 
 
-        document
-            .getElementById("avatarUsuario")
-            .textContent =
-            nome.charAt(0).toUpperCase();
+        if (!senha) {
+
+            alert("Digite sua senha.");
+
+            return;
+
+        }
 
 
-        telaLogin.style.display = "none";
+        db.usuarioLogado = {
 
-        dashboard.style.display = "block";
+            nome: nome,
 
+            email: email
 
-        mostrarPagina("paginaDashboard");
-
-        atualizarTudo();
-
-    });
+        };
 
 
-    /* =========================
-       NAVEGAÇÃO
-    ========================= */
+        const usuarioExistente =
+            db.usuarios.find(function (usuario) {
 
-    const menus = {
-
-        menuDashboard: "paginaDashboard",
-
-        menuLivros: "paginaLivros",
-
-        menuAlunos: "paginaAlunos",
-
-        menuEmprestimos: "paginaEmprestimos",
-
-        menuDevolucoes: "paginaDevolucoes",
-
-        menuAtrasados: "paginaAtrasados",
-
-        menuHistorico: "paginaHistorico",
-
-        menuRelatorios: "paginaRelatorios"
-
-    };
-
-
-    Object.keys(menus).forEach(function (menuId) {
-
-        document
-            .getElementById(menuId)
-            .addEventListener("click", function () {
-
-                mostrarPagina(
-                    menus[menuId]
-                );
-
-                atualizarTudo();
-
-            });
-
-    });
-
-
-    function mostrarPagina(idPagina) {
-
-        document
-            .querySelectorAll(".pagina")
-            .forEach(function (pagina) {
-
-                pagina.style.display = "none";
+                return usuario.email === email;
 
             });
 
 
-        document
-            .getElementById(idPagina)
-            .style.display = "block";
+        if (!usuarioExistente) {
+
+            db.usuarios.push({
+
+                id: Date.now(),
+
+                nome: nome,
+
+                email: email
+
+            });
+
+        }
 
 
-        Object.keys(menus).forEach(function (menuId) {
-
-            document
-                .getElementById(menuId)
-                .classList.remove("ativo");
-
-        });
+        salvarDB();
 
 
-        Object.keys(menus).forEach(function (menuId) {
+        nomeLogado.textContent =
+            nome;
 
-            if (menus[menuId] === idPagina) {
-
-                document
-                    .getElementById(menuId)
-                    .classList.add("ativo");
-
-            }
-
-        });
-
-    }
+        avatarUsuario.textContent =
+            nome
+                .charAt(0)
+                .toUpperCase();
 
 
-    /* =========================
-       CADASTRAR LIVRO
-    ========================= */
+        mostrarTela("dashboard");
 
-    document
-        .getElementById("btnCadastrarLivro")
-        .addEventListener("click", function () {
+    });
+
+
+    // ==========================================
+    // CADASTRAR LIVRO
+    // ==========================================
+
+    btnCadastrarLivro.addEventListener(
+        "click",
+        function () {
 
             const titulo =
-                document
-                    .getElementById("tituloLivro")
-                    .value
-                    .trim();
+                tituloLivro.value.trim();
 
             const autor =
-                document
-                    .getElementById("autorLivro")
-                    .value
-                    .trim();
+                autorLivro.value.trim();
 
 
-            if (titulo === "" || autor === "") {
+            if (!titulo || !autor) {
 
                 alert(
-                    "Preencha o título e o autor."
+                    "Por favor, preencha o título e o autor do livro."
                 );
 
                 return;
@@ -226,28 +574,52 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            livros.push({
+            const livroExistente =
+                db.livros.some(function (livro) {
+
+                    return (
+                        livro.titulo.toLowerCase() ===
+                        titulo.toLowerCase() &&
+                        livro.autor.toLowerCase() ===
+                        autor.toLowerCase()
+                    );
+
+                });
+
+
+            if (livroExistente) {
+
+                alert(
+                    "Esse livro já está cadastrado."
+                );
+
+                return;
+
+            }
+
+
+            const novoLivro = {
 
                 id: Date.now(),
 
                 titulo: titulo,
 
-                autor: autor
+                autor: autor,
 
-            });
+                status: "disponivel"
 
-
-            salvarDados();
-
-
-            document
-                .getElementById("tituloLivro")
-                .value = "";
+            };
 
 
-            document
-                .getElementById("autorLivro")
-                .value = "";
+            db.livros.push(novoLivro);
+
+
+            salvarDB();
+
+
+            tituloLivro.value = "";
+
+            autorLivro.value = "";
 
 
             atualizarTudo();
@@ -257,28 +629,92 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Livro cadastrado com sucesso!"
             );
 
-        });
+        }
+    );
 
 
-    function mostrarLivros() {
+    // ==========================================
+    // EXCLUIR LIVRO
+    // ==========================================
 
-        const lista =
-            document.getElementById("listaLivros");
+    function excluirLivro(id) {
 
-        lista.innerHTML = "";
+        const livroEmprestado =
+            db.emprestimos.some(function (emprestimo) {
+
+                return (
+                    emprestimo.livroId === id &&
+                    emprestimo.status === "ativo"
+                );
+
+            });
 
 
-        if (livros.length === 0) {
+        if (livroEmprestado) {
 
-            lista.innerHTML =
-                "<p>Nenhum livro cadastrado ainda.</p>";
+            alert(
+                "Este livro está emprestado e não pode ser excluído."
+            );
 
             return;
 
         }
 
 
-        livros.forEach(function (livro) {
+        const confirmar =
+            confirm(
+                "Deseja realmente excluir este livro?"
+            );
+
+
+        if (!confirmar) {
+            return;
+        }
+
+
+        db.livros =
+            db.livros.filter(function (livro) {
+
+                return livro.id !== id;
+
+            });
+
+
+        salvarDB();
+
+        atualizarTudo();
+
+    }
+
+
+    // ==========================================
+    // DISPONIBILIZAR FUNÇÃO PARA O HTML
+    // ==========================================
+
+    window.excluirLivro =
+        excluirLivro;
+
+
+    // ==========================================
+    // RENDERIZAR LIVROS
+    // ==========================================
+
+    function renderLivros() {
+
+        listaLivros.innerHTML = "";
+
+
+        if (db.livros.length === 0) {
+
+            listaLivros.innerHTML =
+                "<p>Nenhum livro cadastrado.</p>";
+
+            return;
+
+        }
+
+
+        db.livros.forEach(function (livro) {
 
             const item =
                 document.createElement("div");
@@ -286,16 +722,36 @@ document.addEventListener("DOMContentLoaded", function () {
             item.className = "item";
 
 
+            const statusTexto =
+                livro.status === "emprestado"
+                    ? "Emprestado"
+                    : "Disponível";
+
+
+            const statusCor =
+                livro.status === "emprestado"
+                    ? "#e99129"
+                    : "#19a974";
+
+
             item.innerHTML = `
 
                 <div>
 
                     <strong>
-                        ${livro.titulo}
+                        ${escaparHTML(livro.titulo)}
                     </strong>
 
                     <span>
-                        Autor: ${livro.autor}
+                        Autor:
+                        ${escaparHTML(livro.autor)}
+                    </span>
+
+                    <span>
+                        Status:
+                        <b style="color:${statusCor}">
+                            ${statusTexto}
+                        </b>
                     </span>
 
                 </div>
@@ -313,92 +769,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
             item
                 .querySelector(".btn-excluir")
-                .addEventListener("click", function () {
+                .addEventListener(
+                    "click",
+                    function () {
 
-                    excluirLivro(livro.id);
+                        excluirLivro(livro.id);
 
-                });
+                    }
+                );
 
 
-            lista.appendChild(item);
+            listaLivros.appendChild(item);
 
         });
 
     }
 
 
-    function excluirLivro(id) {
+    // ==========================================
+    // CADASTRAR ALUNO
+    // ==========================================
 
-        const emprestado =
-            emprestimos.some(function (emprestimo) {
-
-                return emprestimo.livroId === id;
-
-            });
-
-
-        if (emprestado) {
-
-            alert(
-                "Este livro está emprestado e não pode ser excluído."
-            );
-
-            return;
-
-        }
-
-
-        if (
-            !confirm(
-                "Deseja excluir este livro?"
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        livros =
-            livros.filter(function (livro) {
-
-                return livro.id !== id;
-
-            });
-
-
-        salvarDados();
-
-        atualizarTudo();
-
-    }
-
-
-    /* =========================
-       CADASTRAR ALUNO
-    ========================= */
-
-    document
-        .getElementById("btnCadastrarAluno")
-        .addEventListener("click", function () {
+    btnCadastrarAluno.addEventListener(
+        "click",
+        function () {
 
             const nome =
-                document
-                    .getElementById("nomeAluno")
-                    .value
-                    .trim();
+                nomeAluno.value.trim();
 
             const matricula =
-                document
-                    .getElementById("matriculaAluno")
-                    .value
-                    .trim();
+                matriculaAluno.value.trim();
 
 
-            if (nome === "" || matricula === "") {
+            if (!nome || !matricula) {
 
                 alert(
-                    "Preencha o nome e a matrícula."
+                    "Por favor, preencha o nome e a matrícula do aluno."
                 );
 
                 return;
@@ -406,7 +812,29 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            alunos.push({
+            const matriculaExistente =
+                db.alunos.some(function (aluno) {
+
+                    return (
+                        aluno.matricula.toLowerCase() ===
+                        matricula.toLowerCase()
+                    );
+
+                });
+
+
+            if (matriculaExistente) {
+
+                alert(
+                    "Essa matrícula já está cadastrada."
+                );
+
+                return;
+
+            }
+
+
+            const novoAluno = {
 
                 id: Date.now(),
 
@@ -414,20 +842,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 matricula: matricula
 
-            });
+            };
 
 
-            salvarDados();
+            db.alunos.push(novoAluno);
 
 
-            document
-                .getElementById("nomeAluno")
-                .value = "";
+            salvarDB();
 
 
-            document
-                .getElementById("matriculaAluno")
-                .value = "";
+            nomeAluno.value = "";
+
+            matriculaAluno.value = "";
 
 
             atualizarTudo();
@@ -437,28 +863,88 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Aluno cadastrado com sucesso!"
             );
 
-        });
+        }
+    );
 
 
-    function mostrarAlunos() {
+    // ==========================================
+    // EXCLUIR ALUNO
+    // ==========================================
 
-        const lista =
-            document.getElementById("listaAlunos");
+    function excluirAluno(id) {
 
-        lista.innerHTML = "";
+        const alunoEmprestado =
+            db.emprestimos.some(function (emprestimo) {
+
+                return (
+                    emprestimo.alunoId === id &&
+                    emprestimo.status === "ativo"
+                );
+
+            });
 
 
-        if (alunos.length === 0) {
+        if (alunoEmprestado) {
 
-            lista.innerHTML =
-                "<p>Nenhum aluno cadastrado ainda.</p>";
+            alert(
+                "Este aluno possui um empréstimo ativo e não pode ser excluído."
+            );
 
             return;
 
         }
 
 
-        alunos.forEach(function (aluno) {
+        const confirmar =
+            confirm(
+                "Deseja realmente excluir este aluno?"
+            );
+
+
+        if (!confirmar) {
+            return;
+        }
+
+
+        db.alunos =
+            db.alunos.filter(function (aluno) {
+
+                return aluno.id !== id;
+
+            });
+
+
+        salvarDB();
+
+        atualizarTudo();
+
+    }
+
+
+    window.excluirAluno =
+        excluirAluno;
+
+
+    // ==========================================
+    // RENDERIZAR ALUNOS
+    // ==========================================
+
+    function renderAlunos() {
+
+        listaAlunos.innerHTML = "";
+
+
+        if (db.alunos.length === 0) {
+
+            listaAlunos.innerHTML =
+                "<p>Nenhum aluno cadastrado.</p>";
+
+            return;
+
+        }
+
+
+        db.alunos.forEach(function (aluno) {
 
             const item =
                 document.createElement("div");
@@ -471,17 +957,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div>
 
                     <strong>
-                        ${aluno.nome}
+                        ${escaparHTML(aluno.nome)}
                     </strong>
 
                     <span>
-                        Matrícula: ${aluno.matricula}
+                        Matrícula:
+                        ${escaparHTML(aluno.matricula)}
                     </span>
 
                 </div>
 
                 <button
-                    class="btn-excluir">
+                    class="btn-excluir"
+                    data-id="${aluno.id}">
 
                     Excluir
 
@@ -492,94 +980,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
             item
                 .querySelector(".btn-excluir")
-                .addEventListener("click", function () {
+                .addEventListener(
+                    "click",
+                    function () {
 
-                    excluirAluno(aluno.id);
+                        excluirAluno(aluno.id);
 
-                });
+                    }
+                );
 
 
-            lista.appendChild(item);
+            listaAlunos.appendChild(item);
 
         });
 
     }
 
 
-    function excluirAluno(id) {
+    // ==========================================
+    // ATUALIZAR SELECTS
+    // ==========================================
 
-        const emprestado =
-            emprestimos.some(function (emprestimo) {
-
-                return emprestimo.alunoId === id;
-
-            });
-
-
-        if (emprestado) {
-
-            alert(
-                "Este aluno possui um empréstimo ativo."
-            );
-
-            return;
-
-        }
-
-
-        if (
-            !confirm(
-                "Deseja excluir este aluno?"
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        alunos =
-            alunos.filter(function (aluno) {
-
-                return aluno.id !== id;
-
-            });
-
-
-        salvarDados();
-
-        atualizarTudo();
-
-    }
-
-
-    /* =========================
-       SELECTS
-    ========================= */
-
-    function atualizarSelects() {
-
-        const selectAluno =
-            document.getElementById("selectAluno");
-
-        const selectLivro =
-            document.getElementById("selectLivro");
-
+    function renderSelects() {
 
         selectAluno.innerHTML =
-            '<option value="">Selecione um aluno</option>';
+            `
+            <option value="">
+                Selecione um aluno
+            </option>
+            `;
 
 
-        selectLivro.innerHTML =
-            '<option value="">Selecione um livro</option>';
-
-
-        alunos.forEach(function (aluno) {
+        db.alunos.forEach(function (aluno) {
 
             const option =
                 document.createElement("option");
 
-            option.value = aluno.id;
+            option.value =
+                aluno.id;
 
             option.textContent =
                 aluno.nome +
@@ -591,22 +1029,27 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        livros.forEach(function (livro) {
-
-            const emprestado =
-                emprestimos.some(function (emprestimo) {
-
-                    return emprestimo.livroId === livro.id;
-
-                });
+        selectLivro.innerHTML =
+            `
+            <option value="">
+                Selecione um livro
+            </option>
+            `;
 
 
-            if (!emprestado) {
+        db.livros
+            .filter(function (livro) {
+
+                return livro.status === "disponivel";
+
+            })
+            .forEach(function (livro) {
 
                 const option =
                     document.createElement("option");
 
-                option.value = livro.id;
+                option.value =
+                    livro.id;
 
                 option.textContent =
                     livro.titulo +
@@ -615,45 +1058,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 selectLivro.appendChild(option);
 
-            }
-
-        });
+            });
 
     }
 
 
-    /* =========================
-       EMPRÉSTIMO
-    ========================= */
+    // ==========================================
+    // REGISTRAR EMPRÉSTIMO
+    // ==========================================
 
-    document
-        .getElementById("btnCadastrarEmprestimo")
-        .addEventListener("click", function () {
+    btnCadastrarEmprestimo.addEventListener(
+        "click",
+        function () {
 
             const alunoId =
-                Number(
-                    document.getElementById("selectAluno").value
-                );
+                Number(selectAluno.value);
 
             const livroId =
-                Number(
-                    document.getElementById("selectLivro").value
-                );
+                Number(selectLivro.value);
 
-            const dataDevolucao =
-                document
-                    .getElementById("dataDevolucao")
-                    .value;
+            const dataDev =
+                dataDevolucao.value;
 
 
             if (
                 !alunoId ||
                 !livroId ||
-                !dataDevolucao
+                !dataDev
             ) {
 
                 alert(
-                    "Preencha todos os campos."
+                    "Selecione o aluno, o livro e a data de devolução."
                 );
 
                 return;
@@ -662,7 +1097,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             const aluno =
-                alunos.find(function (item) {
+                db.alunos.find(function (item) {
 
                     return item.id === alunoId;
 
@@ -670,74 +1105,124 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             const livro =
-                livros.find(function (item) {
+                db.livros.find(function (item) {
 
                     return item.id === livroId;
 
                 });
 
 
-            emprestimos.push({
+            if (!aluno || !livro) {
+
+                alert(
+                    "Aluno ou livro não encontrado."
+                );
+
+                return;
+
+            }
+
+
+            if (livro.status === "emprestado") {
+
+                alert(
+                    "Esse livro já está emprestado."
+                );
+
+                return;
+
+            }
+
+
+            if (dataDev < obterDataHoje()) {
+
+                alert(
+                    "A data de devolução não pode ser anterior a hoje."
+                );
+
+                return;
+
+            }
+
+
+            const novoEmprestimo = {
 
                 id: Date.now(),
 
                 alunoId: alunoId,
 
-                alunoNome: aluno.nome,
-
                 livroId: livroId,
 
-                livroTitulo: livro.titulo,
+                nomeAluno: aluno.nome,
+
+                tituloLivro: livro.titulo,
 
                 dataEmprestimo:
-                    new Date()
-                        .toISOString()
-                        .split("T")[0],
+                    obterDataHoje(),
 
                 dataDevolucao:
-                    dataDevolucao
+                    dataDev,
 
-            });
+                status: "ativo"
+
+            };
 
 
-            salvarDados();
+            livro.status =
+                "emprestado";
+
+
+            db.emprestimos.push(
+                novoEmprestimo
+            );
+
+
+            salvarDB();
+
+
+            selectAluno.value = "";
+
+            selectLivro.value = "";
+
+            dataDevolucao.value = "";
+
 
             atualizarTudo();
-
-
-            document
-                .getElementById("selectAluno")
-                .value = "";
-
-
-            document
-                .getElementById("selectLivro")
-                .value = "";
-
-
-            document
-                .getElementById("dataDevolucao")
-                .value = "";
 
 
             alert(
                 "Empréstimo registrado com sucesso!"
             );
 
-        });
+        }
+    );
 
 
-    function mostrarEmprestimos() {
+    // ==========================================
+    // RENDERIZAR EMPRÉSTIMOS
+    // ==========================================
 
-        const lista =
-            document.getElementById("listaEmprestimos");
+    function renderEmprestimos() {
 
-        lista.innerHTML = "";
+        listaEmprestimos.innerHTML = "";
 
 
-        if (emprestimos.length === 0) {
+        const ativos =
+            db.emprestimos.filter(
+                function (emprestimo) {
 
-            lista.innerHTML =
+                    return (
+                        emprestimo.status ===
+                        "ativo"
+                    );
+
+                }
+            );
+
+
+        if (ativos.length === 0) {
+
+            listaEmprestimos.innerHTML =
                 "<p>Nenhum empréstimo ativo.</p>";
 
             return;
@@ -745,7 +1230,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        emprestimos.forEach(function (emprestimo) {
+        ativos.forEach(function (emprestimo) {
 
             const item =
                 document.createElement("div");
@@ -758,81 +1243,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div>
 
                     <strong>
-                        ${emprestimo.livroTitulo}
+                        ${escaparHTML(
+                            emprestimo.tituloLivro
+                        )}
                     </strong>
 
                     <span>
-                        Aluno: ${emprestimo.alunoNome}
+                        Aluno:
+                        ${escaparHTML(
+                            emprestimo.nomeAluno
+                        )}
                     </span>
 
                     <span>
                         Devolução:
-                        ${formatarData(emprestimo.dataDevolucao)}
-                    </span>
-
-                </div>
-
-            `;
-
-
-            lista.appendChild(item);
-
-        });
-
-    }
-
-
-    /* =========================
-       DEVOLUÇÕES
-    ========================= */
-
-    function mostrarDevolucoes() {
-
-        const lista =
-            document.getElementById("listaDevolucoes");
-
-        lista.innerHTML = "";
-
-
-        if (emprestimos.length === 0) {
-
-            lista.innerHTML =
-                "<p>Nenhum livro para devolver.</p>";
-
-            return;
-
-        }
-
-
-        emprestimos.forEach(function (emprestimo) {
-
-            const item =
-                document.createElement("div");
-
-            item.className = "item";
-
-
-            item.innerHTML = `
-
-                <div>
-
-                    <strong>
-                        ${emprestimo.livroTitulo}
-                    </strong>
-
-                    <span>
-                        Aluno: ${emprestimo.alunoNome}
-                    </span>
-
-                    <span>
-                        Data prevista:
-                        ${formatarData(emprestimo.dataDevolucao)}
+                        ${formatarData(
+                            emprestimo.dataDevolucao
+                        )}
                     </span>
 
                 </div>
 
                 <button
-                    class="btn-acao">
+                    class="btn-acao"
+                    data-id="${emprestimo.id}">
 
                     Devolver
 
@@ -843,28 +1277,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
             item
                 .querySelector(".btn-acao")
-                .addEventListener("click", function () {
+                .addEventListener(
+                    "click",
+                    function () {
 
-                    devolverLivro(emprestimo.id);
+                        devolverLivro(
+                            emprestimo.id
+                        );
 
-                });
+                    }
+                );
 
 
-            lista.appendChild(item);
+            listaEmprestimos.appendChild(item);
 
         });
 
     }
 
 
-    function devolverLivro(id) {
+    // ==========================================
+    // DEVOLVER LIVRO
+    // ==========================================
+
+    function devolverLivro(emprestimoId) {
 
         const emprestimo =
-            emprestimos.find(function (item) {
+            db.emprestimos.find(
+                function (item) {
 
-                return item.id === id;
+                    return (
+                        item.id ===
+                        emprestimoId
+                    );
 
-            });
+                }
+            );
 
 
         if (!emprestimo) {
@@ -872,39 +1320,87 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        historico.push({
+        if (emprestimo.status !== "ativo") {
+
+            alert(
+                "Este empréstimo já foi devolvido."
+            );
+
+            return;
+
+        }
+
+
+        const confirmar =
+            confirm(
+                "Confirmar a devolução deste livro?"
+            );
+
+
+        if (!confirmar) {
+            return;
+        }
+
+
+        emprestimo.status =
+            "devolvido";
+
+
+        emprestimo.dataDevolucaoReal =
+            obterDataHoje();
+
+
+        const livro =
+            db.livros.find(
+                function (item) {
+
+                    return (
+                        item.id ===
+                        emprestimo.livroId
+                    );
+
+                }
+            );
+
+
+        if (livro) {
+
+            livro.status =
+                "disponivel";
+
+        }
+
+
+        db.historico.push({
 
             id: Date.now(),
 
+            alunoId:
+                emprestimo.alunoId,
+
+            livroId:
+                emprestimo.livroId,
+
             alunoNome:
-                emprestimo.alunoNome,
+                emprestimo.nomeAluno,
 
             livroTitulo:
-                emprestimo.livroTitulo,
+                emprestimo.tituloLivro,
 
             dataEmprestimo:
                 emprestimo.dataEmprestimo,
 
-            dataDevolucao:
+            dataDevolucaoPrevista:
                 emprestimo.dataDevolucao,
 
             dataDevolucaoReal:
-                new Date()
-                    .toISOString()
-                    .split("T")[0]
+                emprestimo.dataDevolucaoReal
 
         });
 
 
-        emprestimos =
-            emprestimos.filter(function (item) {
+        salvarDB();
 
-                return item.id !== id;
-
-            });
-
-
-        salvarDados();
 
         atualizarTudo();
 
@@ -916,48 +1412,127 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
-       ATRASADOS
-    ========================= */
-
-    function estaAtrasado(emprestimo) {
-
-        const hoje =
-            new Date();
-
-        hoje.setHours(0, 0, 0, 0);
+    window.devolverLivro =
+        devolverLivro;
 
 
-        const data =
-            new Date(
-                emprestimo.dataDevolucao +
-                "T00:00:00"
+    // ==========================================
+    // DEVOLUÇÕES
+    // ==========================================
+
+    function renderDevolucoes() {
+
+        listaDevolucoes.innerHTML = "";
+
+
+        const ativos =
+            db.emprestimos.filter(
+                function (emprestimo) {
+
+                    return (
+                        emprestimo.status ===
+                        "ativo"
+                    );
+
+                }
             );
 
 
-        return data < hoje;
+        if (ativos.length === 0) {
+
+            listaDevolucoes.innerHTML =
+                "<p>Nenhum livro pendente para devolução.</p>";
+
+            return;
+
+        }
+
+
+        ativos.forEach(function (emprestimo) {
+
+            const item =
+                document.createElement("div");
+
+            item.className = "item";
+
+
+            item.innerHTML = `
+
+                <div>
+
+                    <strong>
+                        ${escaparHTML(
+                            emprestimo.tituloLivro
+                        )}
+                    </strong>
+
+                    <span>
+                        Emprestado para:
+                        ${escaparHTML(
+                            emprestimo.nomeAluno
+                        )}
+                    </span>
+
+                    <span>
+                        Data prevista:
+                        ${formatarData(
+                            emprestimo.dataDevolucao
+                        )}
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn-acao"
+                    data-id="${emprestimo.id}">
+
+                    Registrar devolução
+
+                </button>
+
+            `;
+
+
+            item
+                .querySelector(".btn-acao")
+                .addEventListener(
+                    "click",
+                    function () {
+
+                        devolverLivro(
+                            emprestimo.id
+                        );
+
+                    }
+                );
+
+
+            listaDevolucoes.appendChild(item);
+
+        });
 
     }
 
 
-    function mostrarAtrasados() {
+    // ==========================================
+    // ATRASADOS
+    // ==========================================
 
-        const lista =
-            document.getElementById("listaAtrasados");
+    function renderAtrasados() {
 
-        lista.innerHTML = "";
+        listaAtrasados.innerHTML = "";
 
 
         const atrasados =
-            emprestimos.filter(
+            db.emprestimos.filter(
                 estaAtrasado
             );
 
 
         if (atrasados.length === 0) {
 
-            lista.innerHTML =
-                "<p>Nenhum livro em atraso. ✅</p>";
+            listaAtrasados.innerHTML =
+                "<p>Nenhum empréstimo em atraso! ✅</p>";
 
             return;
 
@@ -976,23 +1551,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <div>
 
-                    <strong>
-                        ⚠️ ${emprestimo.livroTitulo}
+                    <strong style="color:#e05252;">
+
+                        ⚠️
+                        ${escaparHTML(
+                            emprestimo.tituloLivro
+                        )}
+
                     </strong>
 
                     <span>
-                        Aluno: ${emprestimo.alunoNome}
+                        Aluno:
+                        ${escaparHTML(
+                            emprestimo.nomeAluno
+                        )}
                     </span>
 
                     <span>
                         Deveria devolver:
-                        ${formatarData(emprestimo.dataDevolucao)}
+                        ${formatarData(
+                            emprestimo.dataDevolucao
+                        )}
                     </span>
 
                 </div>
 
                 <button
-                    class="btn-acao">
+                    class="btn-acao"
+                    data-id="${emprestimo.id}">
 
                     Registrar devolução
 
@@ -1003,35 +1589,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
             item
                 .querySelector(".btn-acao")
-                .addEventListener("click", function () {
+                .addEventListener(
+                    "click",
+                    function () {
 
-                    devolverLivro(emprestimo.id);
+                        devolverLivro(
+                            emprestimo.id
+                        );
 
-                });
+                    }
+                );
 
 
-            lista.appendChild(item);
+            listaAtrasados.appendChild(item);
 
         });
 
     }
 
 
-    /* =========================
-       HISTÓRICO
-    ========================= */
+    // ==========================================
+    // HISTÓRICO
+    // ==========================================
 
-    function mostrarHistorico() {
+    function renderHistorico() {
 
-        const lista =
-            document.getElementById("listaHistorico");
-
-        lista.innerHTML = "";
+        listaHistorico.innerHTML = "";
 
 
-        if (historico.length === 0) {
+        if (db.historico.length === 0) {
 
-            lista.innerHTML =
+            listaHistorico.innerHTML =
                 "<p>Nenhuma devolução registrada.</p>";
 
             return;
@@ -1039,9 +1627,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        [...historico]
-            .reverse()
-            .forEach(function (registro) {
+        const historicoOrdenado =
+            [...db.historico].reverse();
+
+
+        historicoOrdenado.forEach(
+            function (registro) {
 
                 const item =
                     document.createElement("div");
@@ -1054,92 +1645,122 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div>
 
                         <strong>
-                            ${registro.livroTitulo}
+                            ${escaparHTML(
+                                registro.livroTitulo
+                            )}
                         </strong>
 
                         <span>
                             Aluno:
-                            ${registro.alunoNome}
+                            ${escaparHTML(
+                                registro.alunoNome
+                            )}
                         </span>
 
                         <span>
                             Emprestado:
-                            ${formatarData(registro.dataEmprestimo)}
+                            ${formatarData(
+                                registro.dataEmprestimo
+                            )}
                         </span>
 
                         <span>
                             Devolvido:
-                            ${formatarData(registro.dataDevolucaoReal)}
+                            ${formatarData(
+                                registro.dataDevolucaoReal
+                            )}
                         </span>
 
                     </div>
 
+                    <span style="color:#19a974;font-weight:bold;">
+                        DEVOLVIDO
+                    </span>
+
                 `;
 
 
-                lista.appendChild(item);
+                listaHistorico.appendChild(item);
 
-            });
-
-    }
-
-
-    /* =========================
-       DASHBOARD
-    ========================= */
-
-    function atualizarDashboard() {
-
-        const atrasados =
-            emprestimos.filter(
-                estaAtrasado
-            ).length;
-
-
-        document
-            .getElementById("totalLivros")
-            .textContent =
-            livros.length;
-
-
-        document
-            .getElementById("totalAlunos")
-            .textContent =
-            alunos.length;
-
-
-        document
-            .getElementById("totalEmprestados")
-            .textContent =
-            emprestimos.length;
-
-
-        document
-            .getElementById("totalAtrasados")
-            .textContent =
-            atrasados;
-
-
-        mostrarRecentes();
-
-        mostrarDevolucoesProximas();
+            }
+        );
 
     }
 
 
-    function mostrarRecentes() {
+    // ==========================================
+    // DASHBOARD
+    // ==========================================
 
-        const lista =
-            document.getElementById(
-                "emprestimosRecentes"
+    function renderDashboard() {
+
+        const emprestados =
+            db.emprestimos.filter(
+                function (emprestimo) {
+
+                    return (
+                        emprestimo.status ===
+                        "ativo"
+                    );
+
+                }
             );
 
-        lista.innerHTML = "";
+
+        const atrasados =
+            emprestados.filter(
+                estaAtrasado
+            );
 
 
-        if (emprestimos.length === 0) {
+        totalLivros.textContent =
+            db.livros.length;
 
-            lista.innerHTML =
+
+        totalAlunos.textContent =
+            db.alunos.length;
+
+
+        totalEmprestados.textContent =
+            emprestados.length;
+
+
+        totalAtrasados.textContent =
+            atrasados.length;
+
+
+        renderEmprestimosRecentes();
+
+        renderDevolucoesProximas();
+
+    }
+
+
+    // ==========================================
+    // EMPRÉSTIMOS RECENTES
+    // ==========================================
+
+    function renderEmprestimosRecentes() {
+
+        emprestimosRecentes.innerHTML = "";
+
+
+        const ativos =
+            db.emprestimos.filter(
+                function (emprestimo) {
+
+                    return (
+                        emprestimo.status ===
+                        "ativo"
+                    );
+
+                }
+            );
+
+
+        if (ativos.length === 0) {
+
+            emprestimosRecentes.innerHTML =
                 "<p>Nenhum empréstimo registrado.</p>";
 
             return;
@@ -1147,10 +1768,103 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        emprestimos
-            .slice(-5)
+        ativos
+            .slice()
             .reverse()
-            .forEach(function (emprestimo) {
+            .slice(0, 5)
+            .forEach(
+                function (emprestimo) {
+
+                    const item =
+                        document.createElement("div");
+
+                    item.className = "item";
+
+
+                    item.innerHTML = `
+
+                        <div>
+
+                            <strong>
+                                ${escaparHTML(
+                                    emprestimo.tituloLivro
+                                )}
+                            </strong>
+
+                            <span>
+                                ${escaparHTML(
+                                    emprestimo.nomeAluno
+                                )}
+                            </span>
+
+                        </div>
+
+                        <span>
+                            ${formatarData(
+                                emprestimo.dataDevolucao
+                            )}
+                        </span>
+
+                    `;
+
+
+                    emprestimosRecentes
+                        .appendChild(item);
+
+                }
+            );
+
+    }
+
+
+    // ==========================================
+    // DEVOLUÇÕES PRÓXIMAS
+    // ==========================================
+
+    function renderDevolucoesProximas() {
+
+        devolucoesProximas.innerHTML = "";
+
+
+        const proximas =
+            db.emprestimos
+                .filter(
+                    function (emprestimo) {
+
+                        return (
+                            emprestimo.status ===
+                            "ativo" &&
+                            !estaAtrasado(emprestimo)
+                        );
+
+                    }
+                )
+                .sort(
+                    function (a, b) {
+
+                        return (
+                            a.dataDevolucao.localeCompare(
+                                b.dataDevolucao
+                            )
+                        );
+
+                    }
+                )
+                .slice(0, 5);
+
+
+        if (proximas.length === 0) {
+
+            devolucoesProximas.innerHTML =
+                "<p>Nenhuma devolução próxima.</p>";
+
+            return;
+
+        }
+
+
+        proximas.forEach(
+            function (emprestimo) {
 
                 const item =
                     document.createElement("div");
@@ -1163,232 +1877,173 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div>
 
                         <strong>
-                            ${emprestimo.livroTitulo}
+                            ${escaparHTML(
+                                emprestimo.tituloLivro
+                            )}
                         </strong>
 
                         <span>
-                            ${emprestimo.alunoNome}
+                            ${escaparHTML(
+                                emprestimo.nomeAluno
+                            )}
                         </span>
 
                     </div>
 
                     <span>
-                        ${formatarData(emprestimo.dataDevolucao)}
+                        ${formatarData(
+                            emprestimo.dataDevolucao
+                        )}
                     </span>
 
                 `;
 
 
-                lista.appendChild(item);
+                devolucoesProximas
+                    .appendChild(item);
 
-            });
+            }
+        );
 
     }
 
 
-    function mostrarDevolucoesProximas() {
+    // ==========================================
+    // RELATÓRIOS
+    // ==========================================
 
-        const lista =
-            document.getElementById(
-                "devolucoesProximas"
+    function renderRelatorios() {
+
+        const emprestados =
+            db.emprestimos.filter(
+                function (emprestimo) {
+
+                    return (
+                        emprestimo.status ===
+                        "ativo"
+                    );
+
+                }
             );
 
-        lista.innerHTML = "";
-
-
-        const proximas =
-            emprestimos
-                .filter(function (emprestimo) {
-
-                    return !estaAtrasado(emprestimo);
-
-                })
-                .slice(0, 5);
-
-
-        if (proximas.length === 0) {
-
-            lista.innerHTML =
-                "<p>Nenhuma devolução próxima.</p>";
-
-            return;
-
-        }
-
-
-        proximas.forEach(function (emprestimo) {
-
-            const item =
-                document.createElement("div");
-
-            item.className = "item";
-
-
-            item.innerHTML = `
-
-                <div>
-
-                    <strong>
-                        ${emprestimo.livroTitulo}
-                    </strong>
-
-                    <span>
-                        ${emprestimo.alunoNome}
-                    </span>
-
-                </div>
-
-                <span>
-                    ${formatarData(emprestimo.dataDevolucao)}
-                </span>
-
-            `;
-
-
-            lista.appendChild(item);
-
-        });
-
-    }
-
-
-    /* =========================
-       RELATÓRIOS
-    ========================= */
-
-    function atualizarRelatorios() {
 
         const atrasados =
-            emprestimos.filter(
+            emprestados.filter(
                 estaAtrasado
-            ).length;
+            );
 
 
-        document
-            .getElementById("relatorioLivros")
-            .textContent =
-            livros.length;
+        relatorioLivros.textContent =
+            db.livros.length;
 
 
-        document
-            .getElementById("relatorioAlunos")
-            .textContent =
-            alunos.length;
+        relatorioAlunos.textContent =
+            db.alunos.length;
 
 
-        document
-            .getElementById("relatorioEmprestimos")
-            .textContent =
-            emprestimos.length;
+        relatorioEmprestimos.textContent =
+            emprestados.length;
 
 
-        document
-            .getElementById("relatorioDevolucoes")
-            .textContent =
-            historico.length;
+        relatorioDevolucoes.textContent =
+            db.historico.length;
 
 
-        document
-            .getElementById("relatorioAtrasados")
-            .textContent =
-            atrasados;
+        relatorioAtrasados.textContent =
+            atrasados.length;
 
     }
 
 
-    /* =========================
-       SALVAR
-    ========================= */
-
-    function salvarDados() {
-
-        localStorage.setItem(
-            "livrosCEEP",
-            JSON.stringify(livros)
-        );
-
-        localStorage.setItem(
-            "alunosCEEP",
-            JSON.stringify(alunos)
-        );
-
-        localStorage.setItem(
-            "emprestimosCEEP",
-            JSON.stringify(emprestimos)
-        );
-
-        localStorage.setItem(
-            "historicoCEEP",
-            JSON.stringify(historico)
-        );
-
-    }
-
-
-    /* =========================
-       DATA
-    ========================= */
-
-    function formatarData(data) {
-
-        if (!data) {
-            return "-";
-        }
-
-
-        const partes =
-            data.split("-");
-
-
-        if (partes.length !== 3) {
-            return data;
-        }
-
-
-        return (
-            partes[2] +
-            "/" +
-            partes[1] +
-            "/" +
-            partes[0]
-        );
-
-    }
-
-
-    /* =========================
-       ATUALIZAR TUDO
-    ========================= */
+    // ==========================================
+    // ATUALIZAR TUDO
+    // ==========================================
 
     function atualizarTudo() {
 
-        mostrarLivros();
+        renderSelects();
 
-        mostrarAlunos();
+        renderLivros();
 
-        atualizarSelects();
+        renderAlunos();
 
-        mostrarEmprestimos();
+        renderEmprestimos();
 
-        mostrarDevolucoes();
+        renderDevolucoes();
 
-        mostrarAtrasados();
+        renderAtrasados();
 
-        mostrarHistorico();
+        renderHistorico();
 
-        atualizarDashboard();
+        renderDashboard();
 
-        atualizarRelatorios();
+        renderRelatorios();
 
     }
 
 
-    /* =========================
-       INÍCIO
-    ========================= */
+    // ==========================================
+    // ESCAPAR HTML
+    // Evita problemas se alguém digitar
+    // caracteres especiais nos campos.
+    // ==========================================
 
-    mostrarPagina("paginaDashboard");
+    function escaparHTML(texto) {
+
+        if (texto === null ||
+            texto === undefined) {
+
+            return "";
+
+        }
+
+
+        return String(texto)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    // ==========================================
+    // RECUPERAR USUÁRIO LOGADO
+    // ==========================================
+
+    function carregarUsuarioLogado() {
+
+        if (!db.usuarioLogado) {
+            return;
+        }
+
+
+        nomeLogado.textContent =
+            db.usuarioLogado.nome;
+
+
+        avatarUsuario.textContent =
+            db.usuarioLogado.nome
+                .charAt(0)
+                .toUpperCase();
+
+    }
+
+
+    // ==========================================
+    // INICIALIZAÇÃO
+    // ==========================================
+
+    carregarUsuarioLogado();
 
     atualizarTudo();
+
+
+    // ==========================================
+    // SEMPRE COMEÇA NA TELA INICIAL
+    // ==========================================
+
+    mostrarTela("inicial");
 
 });
